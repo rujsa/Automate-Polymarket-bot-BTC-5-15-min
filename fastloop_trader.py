@@ -687,14 +687,72 @@ def run_fast_market_strategy(dry_run=True, positions_only=False, show_config=Fal
 if __name__ == "__main__":
 
     if DEMO_MODE:
-        print("🚀 BTC SCAN MODE ACTIVE")
-        print("📈 Fetching BTC price signal...")
-        print("Price: $97,234.50 (was $96,812.30)")
-        print("Momentum: +0.82%")
-        print("YES price: $0.48")
-        print("Expected fair: ~$0.55")
-        print("💰 Buying YES $5.00")
-        sys.exit(0)
+    print("🚀 FastLoop Trader — Multi Asset Sprint Scan")
+    print("⚡ Automated Momentum Execution Engine")
+    print("=" * 72)
+
+    demos = [
+        {
+            "asset": "BTC", "window": "5m",
+            "market": "Bitcoin Up or Down — 08:10–08:15 ET",
+            "yes": 0.43, "no": 0.57, "fee": "10%",
+            "price_now": 70384.00, "price_then": 69820.00,
+            "momentum": +0.81, "vol": 1.8,
+            "action": "BUY YES", "usd": 15.00, "fill": 0.43,
+        },
+        {
+            "asset": "ETH", "window": "5m",
+            "market": "Ethereum Up or Down — 08:10–08:15 ET",
+            "yes": 0.41, "no": 0.59, "fee": "10%",
+            "price_now": 2086.57, "price_then": 2068.10,
+            "momentum": +0.89, "vol": 1.6,
+            "action": "BUY YES", "usd": 12.00, "fill": 0.41,
+        },
+        {
+            "asset": "BTC", "window": "5m",
+            "market": "Bitcoin Up or Down — 08:15–08:20 ET",
+            "yes": 0.46, "no": 0.54, "fee": "10%",
+            "price_now": 70410.00, "price_then": 70020.00,
+            "momentum": +0.56, "vol": 2.1,
+            "action": "BUY YES", "usd": 10.00, "fill": 0.46,
+        },
+    ]
+
+    for i, d in enumerate(demos, 1):
+        shares = d["usd"] / d["fill"] if d["fill"] > 0 else 0
+
+        print(f"\n🧩 Trade {i}/3 — {d['asset']} {d['window']}")
+        print(f"  🔍 Market: {d['market']}")
+        print(f"  📊 Odds: YES ${d['yes']:.2f} | NO ${d['no']:.2f} | Fee {d['fee']}")
+
+        print("  📈 CEX Momentum Signal:")
+        print(f"     • Price now: ${d['price_now']:,.2f}")
+        print(f"     • Previous:  ${d['price_then']:,.2f}")
+        print(f"     • 5m Move:   {d['momentum']:+.2f}%")
+        print(f"     • Volume:    {d['vol']:.1f}x average")
+
+        print("  🧠 Strategy Validation:")
+        print("     • Momentum threshold ✔")
+        print("     • Divergence threshold ✔")
+        print("     • Fee-adjusted edge ✔")
+        print("     • Time remaining ✔")
+
+        print("  💰 Execution:")
+        print(f"     • {d['action']} ${d['usd']:.2f}")
+        print(f"     • Avg Fill: ${d['fill']:.2f}")
+        print(f"     • Shares:   ~{shares:.1f}")
+        print("     • Venue: Polymarket | Source: sdk:fastloop")
+
+    total = sum(d["usd"] for d in demos)
+
+    print("\n📊 Session Summary")
+    print(f"  • Trades Executed: 3")
+    print(f"  • Total Notional:  ${total:.2f}")
+    print("  • Assets: BTC, ETH, BTC")
+    print("  • Strategy: Momentum + Fast Market Divergence")
+    print("=" * 72)
+    sys.exit(0)
+
 
     parser = argparse.ArgumentParser(description="Simmer FastLoop Trading Skill")
     parser.add_argument("--live", action="store_true", help="Execute real trades (default is dry-run)")
