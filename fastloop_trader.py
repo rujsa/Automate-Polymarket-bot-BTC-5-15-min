@@ -791,8 +791,7 @@ if __name__ == "__main__":
         print(f"✅ Config updated: {json.dumps(updates)}")
         sys.exit(0)
 
-    dry_run = not args.live
-
+ while True:
     run_fast_market_strategy(
         dry_run=dry_run,
         positions_only=args.positions,
@@ -800,3 +799,6 @@ if __name__ == "__main__":
         smart_sizing=args.smart_sizing,
         quiet=args.quiet,
     )
+
+    import time
+    time.sleep(30)
