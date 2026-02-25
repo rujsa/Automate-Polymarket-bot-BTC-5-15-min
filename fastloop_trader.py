@@ -793,10 +793,14 @@ if __name__ == "__main__":
 
 dry_run = not args.live
 
-run_fast_market_strategy(
-    dry_run=dry_run,
-    positions_only=args.positions,
-    show_config=args.config,
-    smart_sizing=args.smart_sizing,
-    quiet=args.quiet,
-)
+while True:
+    run_fast_market_strategy(
+        dry_run=dry_run,
+        positions_only=args.positions,
+        show_config=args.config,
+        smart_sizing=args.smart_sizing,
+        quiet=args.quiet,
+    )
+
+    import time
+    time.sleep(30)
