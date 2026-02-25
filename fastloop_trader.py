@@ -791,7 +791,7 @@ if __name__ == "__main__":
         print(f"✅ Config updated: {json.dumps(updates)}")
         sys.exit(0)
 
- while True:
+while True:
     run_fast_market_strategy(
         dry_run=dry_run,
         positions_only=args.positions,
